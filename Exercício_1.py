@@ -1,12 +1,14 @@
 # Código feito por: Mariana Lopes Camilo (RA:2058804)
 
-# Importando biblioteca de matemática (math) e biblioteca para plotar os gráficos
+# Importando biblioteca de matemática (math) e biblioteca para plotar os gráficos (matplotlib), numpy para funções de
+# arranjo de vetores e pandas para fazer a tabela.
+
 import math
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas
 
 # Vamos definir os valores dados no enunciado do exercício
-import pandas
 
 N = 100  # número de iterações
 w = 5  # largura da comporta em metros
@@ -26,11 +28,12 @@ FV = []
 FH = []
 F_total = []
 Erro = []
-F_analitica = 362963.83  # Disponível no PDF
+F_analitica = 362963.83  # Força analítica disponível no PDF
 
 # Método dos trapézios para a Força Vertical: O código utiliza o tamanho do passo, ou seja, h, para fazer a conta.
 # Como o exercício pede um número N de iterações, definirei h = (xM-x0)/N
 
+# Toda vez que i aparece no código, é usado como variável de iteração dos while's.
 i = 0
 while i < N:  # iteração para montar a tabela de 0 < N < 101
     x0 = float(0)  # limite inferior é x=0
@@ -50,6 +53,8 @@ while i < N:  # iteração para montar a tabela de 0 < N < 101
     deltax.append(h)
     FV.append(integral)
     i += 1
+    # Quando faço .append, estou adicionando o valor da integral nesse N e adicionando-o à lista de
+    # vetores dos deltax, o mesmo para a força vertical.
 
 # Método dos trapézios para a Força Horizontal:
 i = 0
@@ -73,6 +78,8 @@ while i < N:
 
 # Calcular as Forças resulantes para todos os N's e os Erros
 
+# Aqui, utilizo a mesma função append para calcular a força resultante e o erro através de cada valor de cada vetor
+# de Fv e Fh.
 i = 0
 while i < N:
     F_total.append(np.sqrt(np.power(FV[i], 2) + np.power(FH[i], 2)))
@@ -81,7 +88,8 @@ while i < N:
 dados = [np.arange(1, N + 1, 1), deltax, FH, FV, F_total, Erro]
 
 
-# Esta é uma função para obter a transposta de uma matriz, fonte: https://www.codegrepper.com/code-examples/python/transpose+matrix+in+python+without+numpy
+# Esta é uma função para obter a transposta de uma matriz,
+# fonte: https://www.codegrepper.com/code-examples/python/transpose+matrix+in+python+without+numpy
 def transpose(matrix):
     rows = len(matrix)
     columns = len(matrix[0])
